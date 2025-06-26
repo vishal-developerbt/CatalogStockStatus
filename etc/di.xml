@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Bluethinkinc\CatalogStockStatus\Api\RuleRepositoryInterface" type="Bluethinkinc\CatalogStockStatus\Model\RuleRepository"/>
+	<preference for="Bluethinkinc\CatalogStockStatus\Api\Data\RuleInterface" type="Bluethinkinc\CatalogStockStatus\Model\Rule"/>
+	<preference for="Bluethinkinc\CatalogStockStatus\Api\Data\RuleSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Bluethinkinc\CatalogStockStatus\Model\ResourceModel\Rule\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">bluethinkinc_catalogstockstatus_rule</argument>
+			<argument name="resourceModel" xsi:type="string">Bluethinkinc\CatalogStockStatus\Model\ResourceModel\Rule\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="bluethinkinc_catalogstockstatus_rule_listing_data_source" xsi:type="string">Bluethinkinc\CatalogStockStatus\Model\ResourceModel\Rule\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+
+	<!-- Image Uploader -->
+	<virtualType name="VirtualTypeName" type="Magento\Catalog\Model\ImageUploader">
+	    <arguments>
+	        <argument name="baseTmpPath" xsi:type="string">productreview/tmp/image</argument>
+	        <argument name="basePath" xsi:type="string">productreview/image</argument>
+	        <argument name="allowedExtensions" xsi:type="array">
+	            <item name="jpg" xsi:type="string">jpg</item>
+	            <item name="jpeg" xsi:type="string">jpeg</item>
+	            <item name="gif" xsi:type="string">gif</item>
+	            <item name="png" xsi:type="string">png</item>
+	        </argument>
+	    </arguments>
+	</virtualType>
+	<type name="Bluethinkinc\CatalogStockStatus\Controller\Adminhtml\Rule\Upload">
+	    <arguments>
+	        <argument name="imageUploader" xsi:type="object">VirtualTypeName</argument>
+	    </arguments>
+	</type>
+	<!-- End Image Uploader -->
+</config>
