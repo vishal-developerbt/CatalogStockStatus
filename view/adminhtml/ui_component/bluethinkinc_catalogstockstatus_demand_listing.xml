@@ -1,0 +1,155 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">bluethinkinc_catalogstockstatus_demand_listing.bluethinkinc_catalogstockstatus_demand_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>bluethinkinc_catalogstockstatus_demand_columns</spinner>
+		<deps>
+			<dep>bluethinkinc_catalogstockstatus_demand_listing.bluethinkinc_catalogstockstatus_demand_listing_data_source</dep>
+		</deps>
+		<buttons>
+			<button name="add">
+				<url path="*/*/new"/>
+				<class>primary</class>
+				<label translate="true">Add new Demand</label>
+			</button>
+		</buttons>
+	</settings>
+	<dataSource name="bluethinkinc_catalogstockstatus_demand_listing_data_source" component="Magento_Ui/js/grid/provider">
+		<settings>
+			<storageConfig>
+				<param name="indexField" xsi:type="string">demand_id</param>
+			</storageConfig>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>Bluethinkinc_CatalogStockStatus::Demand</aclResource>
+		<dataProvider name="bluethinkinc_catalogstockstatus_demand_listing_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>demand_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="bluethinkinc_catalogstockstatus_demand_columns">
+		<settings>
+			<editorConfig>
+				<param name="selectProvider" xsi:type="string">bluethinkinc_catalogstockstatus_demand_listing.bluethinkinc_catalogstockstatus_demand_listing.bluethinkinc_catalogstockstatus_demand_columns.ids</param>
+				<param name="enabled" xsi:type="boolean">true</param>
+				<param name="indexField" xsi:type="string">demand_id</param>
+				<param name="clientConfig" xsi:type="array">
+					<item name="saveUrl" xsi:type="url" path="bluethinkinc_catalogstockstatus/Demand/inlineEdit"/>
+					<item name="validateBeforeSave" xsi:type="boolean">false</item>
+				</param>
+			</editorConfig>
+			<childDefaults>
+				<param name="fieldAction" xsi:type="array">
+					<item name="provider" xsi:type="string">bluethinkinc_catalogstockstatus_demand_listing.bluethinkinc_catalogstockstatus_demand_listing.bluethinkinc_catalogstockstatus_demand_columns_editor</item>
+					<item name="target" xsi:type="string">startEdit</item>
+					<item name="params" xsi:type="array">
+						<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+						<item name="1" xsi:type="boolean">true</item>
+					</item>
+				</param>
+			</childDefaults>
+		</settings>
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>demand_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<!-- <column name="demand_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column> -->
+		<!-- <column name="product_name">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Product Name</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column> -->
+		<!-- <actionsColumn name="actions" class="Bluethinkinc\CatalogStockStatus\Ui\Component\Listing\Column\DemandActions">
+			<settings>
+				<indexField>demand_id</indexField>
+				<resizeEnabled>false</resizeEnabled>
+				<resizeDefaultWidth>107</resizeDefaultWidth>
+			</settings>
+		</actionsColumn> -->
+		<column name="product_name" class="Bluethinkinc\CatalogStockStatus\Ui\Component\Listing\Column\ProductName">
+		    <settings>
+		        <filter>text</filter>
+		        <label translate="true">Product Name</label>
+		        <sortable>true</sortable>
+		        <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+		    </settings>
+		</column>
+		<column name="product_sku">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Product Sku</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="out_of_stock_date">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Out Of Stock Date</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="number_of_subscriptions">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Number Of Subscriptions</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="status">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Status</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+	</columns>
+</listing>

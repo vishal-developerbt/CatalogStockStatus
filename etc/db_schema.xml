@@ -16,4 +16,30 @@
 		<column name="created_at" nullable="false" xsi:type="timestamp" comment="created_at" default="CURRENT_TIMESTAMP" on_update="true"/>
 		<column name="updated_at" nullable="false" xsi:type="timestamp" comment="Updated At" default="CURRENT_TIMESTAMP" on_update="true"/>
 	</table>
+	<table name="bluethinkinc_catalogstockstatus_demand" resource="default" engine="innodb" comment="bluethinkinc_catalogstockstatus_demand Table">
+		<column xsi:type="int" name="demand_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="demand_id"/>
+		</constraint>
+		<column name="product_name" nullable="true" xsi:type="varchar" comment="product_name" length="255"/>
+		<column name="product_sku" nullable="false" xsi:type="varchar" comment="product_sku" length="255"/>
+		<column name="out_of_stock_date" nullable="false" xsi:type="varchar" comment="out_of_stock_date" length="255"/>
+		<column name="number_of_subscriptions" nullable="false" xsi:type="int" comment="number_of_subscriptions" identity="false"/>
+		<column name="status" nullable="false" xsi:type="varchar" comment="status" length="255"/>
+		<column name="created_at" nullable="false" xsi:type="timestamp" comment="created_at" default="CURRENT_TIMESTAMP" on_update="true"/>
+		<column name="updated_at" nullable="false" xsi:type="timestamp" comment="Updated At" default="CURRENT_TIMESTAMP" on_update="true"/>
+	</table>
+	<table name="bluethinkinc_catalogstockstatus_notification" resource="default" engine="innodb" comment="bluethinkinc_catalogstockstatus_notification Table">
+		<column xsi:type="int" name="notification_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="notification_id"/>
+		</constraint>
+		<column name="product_name" nullable="true" xsi:type="varchar" comment="product_name" length="255"/>
+		<column name="product_sku" nullable="true" xsi:type="varchar" comment="product_sku" length="255"/>
+		<column name="customer_name" nullable="true" xsi:type="varchar" comment="customer_name" length="255"/>
+		<column name="email" nullable="true" xsi:type="varchar" comment="email" length="255"/>
+		<column name="subscribed_at" nullable="true" xsi:type="varchar" comment="subscribed_at" length="255"/>
+		<column name="notified_at" nullable="true" xsi:type="varchar" comment="notified_at" length="255"/>
+		<column name="store_view" nullable="true" xsi:type="varchar" comment="store_view" length="255"/>
+	</table>
 </schema>

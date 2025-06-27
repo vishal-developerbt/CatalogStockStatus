@@ -36,4 +36,33 @@
 	    </arguments>
 	</type>
 	<!-- End Image Uploader -->
+<!-- for demand and notification -->
+
+	<preference for="Bluethinkinc\CatalogStockStatus\Api\DemandRepositoryInterface" type="Bluethinkinc\CatalogStockStatus\Model\DemandRepository"/>
+		<preference for="Bluethinkinc\CatalogStockStatus\Api\Data\DemandInterface" type="Bluethinkinc\CatalogStockStatus\Model\Demand"/>
+		<preference for="Bluethinkinc\CatalogStockStatus\Api\Data\DemandSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+		<virtualType name="Bluethinkinc\CatalogStockStatus\Model\ResourceModel\Demand\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+			<arguments>
+				<argument name="mainTable" xsi:type="string">bluethinkinc_catalogstockstatus_demand</argument>
+				<argument name="resourceModel" xsi:type="string">Bluethinkinc\CatalogStockStatus\Model\ResourceModel\Demand\Collection</argument>
+			</arguments>
+		</virtualType>
+		<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+			<arguments>
+				<argument name="collections" xsi:type="array">
+					<item name="bluethinkinc_catalogstockstatus_demand_listing_data_source" xsi:type="string">Bluethinkinc\CatalogStockStatus\Model\ResourceModel\Demand\Grid\Collection</item>
+					<item name="bluethinkinc_catalogstockstatus_notification_listing_data_source" xsi:type="string">Bluethinkinc\CatalogStockStatus\Model\ResourceModel\Notification\Grid\Collection</item>
+				</argument>
+			</arguments>
+		</type>
+		<preference for="Bluethinkinc\CatalogStockStatus\Api\NotificationRepositoryInterface" type="Bluethinkinc\CatalogStockStatus\Model\NotificationRepository"/>
+		<preference for="Bluethinkinc\CatalogStockStatus\Api\Data\NotificationInterface" type="Bluethinkinc\CatalogStockStatus\Model\Notification"/>
+		<preference for="Bluethinkinc\CatalogStockStatus\Api\Data\NotificationSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+		<virtualType name="Bluethinkinc\CatalogStockStatus\Model\ResourceModel\Notification\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+			<arguments>
+				<argument name="mainTable" xsi:type="string">bluethinkinc_catalogstockstatus_notification</argument>
+				<argument name="resourceModel" xsi:type="string">Bluethinkinc\CatalogStockStatus\Model\ResourceModel\Notification\Collection</argument>
+			</arguments>
+		</virtualType>
+
 </config>

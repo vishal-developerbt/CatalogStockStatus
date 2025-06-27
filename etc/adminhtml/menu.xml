@@ -3,5 +3,7 @@
 	<menu>
 		<add id="Bluethinkinc::top_level" title="Bluethinkinc" module="Bluethinkinc_CatalogStockStatus" sortOrder="9999" resource="Magento_Backend::content"/>
 		<add id="Bluethinkinc_CatalogStockStatus::bluethinkinc_catalogstockstatus_rule" title="Rule" module="Bluethinkinc_CatalogStockStatus" sortOrder="9999" resource="Magento_Backend::content" parent="Bluethinkinc::top_level" action="bluethinkinc_catalogstockstatus/rule/index"/>
+		<add id="Bluethinkinc_CatalogStockStatus::bluethinkinc_catalogstockstatus_demand" title="Demand" module="Bluethinkinc_CatalogStockStatus" sortOrder="9999" resource="Magento_Backend::content" parent="Bluethinkinc::top_level" action="bluethinkinc_catalogstockstatus/demand/index"/>
+		<add id="Bluethinkinc_CatalogStockStatus::bluethinkinc_catalogstockstatus_notification" title="Notification" module="Bluethinkinc_CatalogStockStatus" sortOrder="9999" resource="Magento_Backend::content" parent="Bluethinkinc::top_level" action="bluethinkinc_catalogstockstatus/notification/index"/>
 	</menu>
 </config>
