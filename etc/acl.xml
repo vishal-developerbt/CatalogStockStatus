@@ -9,6 +9,18 @@
 					<resource id="Bluethinkinc_CatalogStockStatus::Rule_update" title="Update Rule" sortOrder="30"/>
 					<resource id="Bluethinkinc_CatalogStockStatus::Rule_view" title="View Rule" sortOrder="40"/>
 				</resource>
+				<resource id="Bluethinkinc_CatalogStockStatus::Demand" title="Demand" sortOrder="10">
+					<resource id="Bluethinkinc_CatalogStockStatus::Demand_save" title="Save Demand" sortOrder="10"/>
+					<resource id="Bluethinkinc_CatalogStockStatus::Demand_delete" title="Delete Demand" sortOrder="20"/>
+					<resource id="Bluethinkinc_CatalogStockStatus::Demand_update" title="Update Demand" sortOrder="30"/>
+					<resource id="Bluethinkinc_CatalogStockStatus::Demand_view" title="View Demand" sortOrder="40"/>
+				</resource>
+				<resource id="Bluethinkinc_CatalogStockStatus::Notification" title="Notification" sortOrder="10">
+					<resource id="Bluethinkinc_CatalogStockStatus::Notification_save" title="Save Notification" sortOrder="10"/>
+					<resource id="Bluethinkinc_CatalogStockStatus::Notification_delete" title="Delete Notification" sortOrder="20"/>
+					<resource id="Bluethinkinc_CatalogStockStatus::Notification_update" title="Update Notification" sortOrder="30"/>
+					<resource id="Bluethinkinc_CatalogStockStatus::Notification_view" title="View Notification" sortOrder="40"/>
+				</resource>
 			</resource>
 		</resources>
 	</acl>
