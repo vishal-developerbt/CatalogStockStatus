@@ -1,51 +1,55 @@
 <?php
-
 namespace Bluethinkinc\CatalogStockStatus\Controller\Adminhtml\Rule;
 
+use Magento\Backend\App\Action;
+use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Filesystem;
+use Magento\MediaStorage\Model\File\UploaderFactory;
 
-class Upload extends \Magento\Backend\App\Action {
-    /**
-     * Image uploader
-     *
-     * @var \Magento\Catalog\Model\ImageUploader
-     */
-    protected $imageUploader;
+class Upload extends Action
+{
+    protected $uploaderFactory;
+    protected $filesystem;
 
-    /**
-     * Upload constructor.
-     *
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Catalog\Model\ImageUploader $imageUploader
-     */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Catalog\Model\ImageUploader $imageUploader
+        Action\Context $context,
+        UploaderFactory $uploaderFactory,
+        Filesystem $filesystem
     ) {
         parent::__construct($context);
-        $this->imageUploader = $imageUploader;
+        $this->uploaderFactory = $uploaderFactory;
+        $this->filesystem = $filesystem;
     }
 
-    /**
-     * Upload file controller action.
-     *
-     * @return \Magento\Framework\Controller\ResultInterface
-     */
-    public function execute() {
-        $imageUploadId = $this->_request->getParam('param_name', 'review_image');
+    public function execute()
+    {
         try {
-            $imageResult = $this->imageUploader->saveFileToTmpDir($imageUploadId);
+            $uploader = $this->uploaderFactory->create(['fileId' => 'image']);
+            $uploader->setAllowedExtensions(['jpg', 'jpeg', 'gif', 'png', 'svg']);
+            $uploader->setAllowRenameFiles(true);
+            $uploader->setFilesDispersion(true); // /a/b/filename.jpg
 
-            $imageResult['cookie'] = [
-                'name' => $this->_getSession()->getName(),
-                'value' => $this->_getSession()->getSessionId(),
-                'lifetime' => $this->_getSession()->getCookieLifetime(),
-                'path' => $this->_getSession()->getCookiePath(),
-                'domain' => $this->_getSession()->getCookieDomain(),
-            ];
+            $mediaDirectory = $this->filesystem->getDirectoryWrite(DirectoryList::MEDIA);
+            $result = $uploader->save($mediaDirectory->getAbsolutePath('bt_catalogstockstatus/tmp/image'));
+
+            $result['url'] = $this->_url->getBaseUrl(['_type' => \Magento\Framework\UrlInterface::URL_TYPE_MEDIA])
+                . 'bt_catalogstockstatus/tmp/image' . $result['file'];
+            $result['file'] = 'bt_catalogstockstatus/tmp/image' . $result['file'];
+
+            return $this->resultFactory->create(ResultFactory::TYPE_JSON)->setData($result);
+
         } catch (\Exception $e) {
-            $imageResult = ['error' => $e->getMessage(), 'errorcode' => $e->getCode()];
+            return $this->resultFactory->create(ResultFactory::TYPE_JSON)->setData([
+                'error' => $e->getMessage(),
+                'errorcode' => $e->getCode()
+            ]);
         }
-        return $this->resultFactory->create(ResultFactory::TYPE_JSON)->setData($imageResult);
+    }
+
+    protected function _isAllowed()
+    {
+        return true;
     }
 }

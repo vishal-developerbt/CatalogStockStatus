@@ -10,39 +10,63 @@ use Magento\Rule\Model\AbstractModel;
 class Rule extends AbstractModel implements RuleInterface
 {
     const CACHE_TAG = 'bluethinkinc_catalogstockstatus_rule';
-    protected $_cacheTag = 'bluethinkinc_catalogstockstatus_rule';
+
+    protected $_cacheTag = self::CACHE_TAG;
     protected $_eventPrefix = 'bluethinkinc_catalogstockstatus_rule';
-    /** @var \Magento\CatalogWidget\Model\Rule\Condition\CombineFactory */
+
+    /**
+     * @var \Magento\CatalogRule\Model\Rule\Condition\CombineFactory
+     */
     protected $combineFactory;
-    protected $_productIds;
-    /** @var \Magento\CatalogWidget\Model\Rule\Condition\ProductFactory */
-    protected $condProdCombineF;
+
+    /**
+     * @var \Magento\Framework\Serialize\Serializer\Json
+     */
+    protected $serializer;
+
+    /**
+     * Constructor
+     */
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Data\FormFactory $formFactory,
         \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
         \Magento\CatalogRule\Model\Rule\Condition\CombineFactory $combineFactory,
-        \Magento\CatalogRule\Model\Rule\Action\CollectionFactory $condProdCombineF,
+        \Magento\Framework\Serialize\Serializer\Json $serializer,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
-        array $data = [],
         ExtensionAttributesFactory $extensionFactory = null,
         AttributeValueFactory $customAttributeFactory = null,
-        \Magento\Framework\Serialize\Serializer\Json $serializer = null
-    )
-    {
+        array $data = []
+    ) {
         $this->combineFactory = $combineFactory;
-        $this->condProdCombineF = $condProdCombineF;
-        $this->_init('Bluethinkinc\CatalogStockStatus\Model\ResourceModel\Rule');
-        $this->setIdFieldName('rule_id');
-        parent::__construct($context, $registry, $formFactory, $localeDate, $resource, $resourceCollection, $data, $extensionFactory, $customAttributeFactory, $serializer);
+        $this->serializer = $serializer;
+
+        parent::__construct(
+            $context,
+            $registry,
+            $formFactory,
+            $localeDate,
+            $resource,
+            $resourceCollection,
+            $data,
+            $extensionFactory,
+            $customAttributeFactory
+        );
     }
 
     /**
-     * Return instance of rule conditions
-     *
-     * @return \Magento\Rule\Model\Condition\AbstractCondition
+     * Initialize ResourceModel
+     */
+    protected function _construct()
+    {
+        $this->_init(\Bluethinkinc\CatalogStockStatus\Model\ResourceModel\Rule::class);
+        $this->setIdFieldName('rule_id');
+    }
+
+    /**
+     * Get conditions instance
      */
     public function getConditionsInstance()
     {
@@ -50,16 +74,15 @@ class Rule extends AbstractModel implements RuleInterface
     }
 
     /**
-     * Return instance of rule actions (Optional, use same Combine if actions not separated)
-     *
-     * @return \Magento\Rule\Model\Condition\AbstractCondition
+     * Get actions instance (optional, same as conditions if no action split needed)
      */
     public function getActionsInstance()
     {
         return $this->combineFactory->create();
     }
 
-    // ➕ Your existing getters/setters remain the same below
+    // === Getters and Setters ===
+
     public function getRuleId()
     {
         return $this->getData(self::RULE_ID);

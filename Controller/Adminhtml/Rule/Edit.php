@@ -53,11 +53,12 @@ class Edit extends \Bluethinkinc\CatalogStockStatus\Controller\Adminhtml\Rule
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $this->initPage($resultPage)->addBreadcrumb(
-            $id ? __('Edit Rule') : __('New Rule'),
-            $id ? __('Edit Rule') : __('New Rule')
+            $id ? __('Edit Rule') : __('Catalog Stock Statuses'),
+            $id ? __('Edit Rule') : __('Catalog Stock Statuses')
         );
         $resultPage->getConfig()->getTitle()->prepend(__('Rules'));
-        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? __('Edit Rule %1', $model->getId()) : __('New Rule'));
+        //$resultPage->getConfig()->getTitle()->prepend($model->getId() ? __('Edit Rule %1', $model->getId()) : __('Catalog Stock Statuses'));
+        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? __('Edit "%1" Rule', $model->getRuleName()) : __('New Rule'));
         return $resultPage;
     }
 }
